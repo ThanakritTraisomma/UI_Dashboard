@@ -1,12 +1,47 @@
 <template>
+  <!-- ปุ่ม Hamburger สำหรับมือถือ -->
+  <button @click="mobileOpen = true" class="lg:hidden p-2">
+    <img src="/image/menu-svgrepo-com.png" alt="Menu" class="w-8 h-8" />
+  </button>
+
+  <!-- Sidebar มือถือ -->
   <aside
-    class="hidden lg:block h-screen bg-black text-white transition-all duration-300 ease-in-out overflow-y-auto"
+    v-if="mobileOpen"
+    class="fixed inset-y-0 left-0 z-50 w-64 bg-black text-white overflow-y-auto h-screen transition-all duration-300 ease-in-out lg:hidden"
+  >
+    <div class="flex flex-col mx-4 my-5">
+      <!-- ปุ่มปิด sidebar มือถือ -->
+      <button
+        class="flex items-center px-3 py-2 rounded-md text-gray-300 hover:bg-white/5 hover:text-white mb-4"
+        @click="mobileOpen = false"
+        aria-label="Close sidebar"
+      >
+        ✕
+      </button>
+
+      <ul class="space-y-1">
+        <li v-for="item in items" :key="item.key">
+          <NuxtLink
+            :to="item.href"
+            class="flex items-center px-3 py-2 rounded-md text-gray-300 hover:bg-white/5 hover:text-white"
+          >
+            <img :src="item.icon" :alt="item.label" class="w-7 h-7" />
+            <span class="ml-3">{{ item.label }}</span>
+          </NuxtLink>
+        </li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Sidebar PC -->
+  <aside
+    class="hidden lg:block h-screen bg-black text-white overflow-y-auto transition-all duration-300 ease-in-out"
     :class="collapsed ? 'w-25' : 'w-64'"
   >
     <div class="flex flex-col mx-4 my-5">
-      <!-- Hamburger -->
+      <!-- Hamburger ย่อ/ขยาย sidebar -->
       <button
-        class="flex items-center  px-3 py-2 rounded-md transition text-gray-300 hover:bg-white/5 hover:text-white"
+        class="flex items-center px-3 py-2 rounded-md transition text-gray-300 hover:bg-white/5 hover:text-white"
         @click="onToggle"
         aria-label="Toggle sidebar"
       >
@@ -15,7 +50,7 @@
 
       <ul class="mt-4 space-y-1">
         <li v-for="item in items" :key="item.key">
-          <!-- กรณีมี children = ทำเป็นปุ่มพับ/กาง -->
+          <!-- ถ้ามี children -->
           <template v-if="item.children?.length">
             <button
               class="w-full flex items-center px-3 py-2 rounded-md transition"
@@ -30,7 +65,6 @@
               <img :src="item.icon" :alt="item.label" class="w-7 h-7 shrink-0" />
               <span v-if="!collapsed" class="truncate ml-3 flex-1">{{ item.label }}</span>
 
-              <!-- caret -->
               <svg
                 v-if="!collapsed"
                 class="w-4 h-4 transition-transform"
@@ -63,7 +97,7 @@
             </transition>
           </template>
 
-          <!-- กรณีไม่มี children = ลิงก์ปกติ -->
+          <!-- ถ้าไม่มี children -->
           <template v-else>
             <NuxtLink
               :to="item.href"
@@ -89,57 +123,39 @@
 import { ref, onMounted } from 'vue'
 const route = useRoute()
 
-type ChildItem = {
-  key: string
-  label: string
-  href: string
-}
-type Item = {
-  key: string
-  label: string
-  href?: string
-  icon: string
-  children?: ChildItem[]
-}
+// Sidebar มือถือ
+const mobileOpen = ref<boolean>(false)
+
+// Sidebar PC
+const collapsed = ref<boolean>(false)
+const openSections = ref<Set<string>>(new Set())
+
+type ChildItem = { key: string; label: string; href: string }
+type Item = { key: string; label: string; href?: string; icon: string; children?: ChildItem[] }
 
 const items: Item[] = [
-  { key: 'dashboard', label: 'Dashboard', href: '/',          icon: '/image/home-svgrepo-com.png' },
+  { key: 'dashboard', label: 'Dashboard', href: '/', icon: '/image/home-svgrepo-com.png' },
   { key: 'timesheet', label: 'Timesheet', href: '/Timesheet', icon: '/image/calendar-week-svgrepo-com.png' },
-  { key: 'member',    label: 'Member',    href: '/Member',    icon: '/image/teamwork-team-svgrepo-com (1).png' },
-
-  // รายการที่มี Submenu: Report
+  { key: 'member', label: 'Member', href: '/Member', icon: '/image/teamwork-team-svgrepo-com (1).png' },
   {
-    key: 'report',
-    label: 'Report',
-    icon: '/image/report-text-svgrepo-com.png',
-    children: [
-      // ชื่อไฟล์หน้าใน Nuxt: pages/AdminReport.vue และ pages/UserReport.vue
+    key: 'report', label: 'Report', icon: '/image/report-text-svgrepo-com.png', children: [
       { key: 'admin-report', label: 'Admin Report', href: '/AdminReport' },
-      { key: 'user-report',  label: 'User Report',  href: '/UserReport'  },
+      { key: 'user-report', label: 'User Report', href: '/UserReport' }
     ]
   },
-
-  { key: 'admin',   label: 'Admin',     icon: '/image/admin-with-cogwheels-svgrepo-com.png' ,  children: [
-            { key: 'Approve', label: 'Approve', href: '/Approve' },
-            { key: 'Paid', label: 'Paid', href: '/Paid' },
-        ]},
-  { key: 'setting', label: 'Setting', icon: '/image/setting-5-svgrepo-com.png',
-        children: [
-            { key: 'User', label: 'User', href: '/UsersSetting' },
-            { key: 'Member', label: 'Member', href: '/MemberSetting' },
-            { key: 'Location', label: 'Location', href: '/LocationSetting' },
-            { key: 'Mission', label: 'Mission', href: '/MissionSetting' },
-        
-        ]
-   },
+  { key: 'admin', label: 'Admin', icon: '/image/admin-with-cogwheels-svgrepo-com.png', children: [
+      { key: 'Approve', label: 'Approve', href: '/Approve' },
+      { key: 'Paid', label: 'Paid', href: '/Paid' }
+  ]},
+  { key: 'setting', label: 'Setting', icon: '/image/setting-5-svgrepo-com.png', children: [
+      { key: 'User', label: 'User', href: '/UsersSetting' },
+      { key: 'Member', label: 'Member', href: '/MemberSetting' },
+      { key: 'Location', label: 'Location', href: '/LocationSetting' },
+      { key: 'Mission', label: 'Mission', href: '/MissionSetting' }
+  ]}
 ]
 
-// ย่อ/ขยาย sidebar ทั้งแถบ
-const collapsed = ref(false)
 const onToggle = () => { collapsed.value = !collapsed.value }
-
-// ชุดคีย์ของ section ที่ถูกกางอยู่
-const openSections = ref<Set<string>>(new Set())
 
 const toggleSection = (key: string) => {
   const s = new Set(openSections.value)
@@ -153,20 +169,15 @@ const isActive = (href?: string) => {
   return route.path.startsWith(href)
 }
 
-// ใช้เช็คว่า parent ควร active ไหม (ถ้ามีลูก active)
 const isActiveAny = (parent: Item) => {
-  if (parent.children?.length) {
-    return parent.children.some(c => isActive(c.href))
-  }
+  if (parent.children?.length) return parent.children.some(c => isActive(c.href))
   return isActive(parent.href)
 }
 
 // เปิด submenu “Report” อัตโนมัติถ้าอยู่ในหน้าลูก
 onMounted(() => {
   const report = items.find(i => i.key === 'report')
-  if (report?.children?.some(c => isActive(c.href))) {
-    openSections.value.add('report')
-  }
+  if (report?.children?.some(c => isActive(c.href))) openSections.value.add('report')
 })
 </script>
 
