@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+:root{
+  --brand:#2e86c1;            /* ฟ้า dashboard */
+  --sidebar:#1f2a36;          /* เทาเข้ม sidebar */
+  --sidebar-muted:#273241;    /* เฉดคลิก/hover */
+}
