@@ -9,11 +9,11 @@
       <div class="flex items-center gap-3 flex-wrap">
        <div class="flex justify-center items-center">
                        <label for="">From:</label>
-                    <input type="date" class="border rounded px-2 py-1 w-35" />
+                    <input type="date" class="border rounded px-2 py-1 w-25" />
                  </div>
                    <div class="flex justify-center items-center">
                      <label for="">To:</label>
-                    <input type="date" class="border rounded px-2 py-1 w-35" />
+                    <input type="date" class="border rounded px-2 py-1 w-25" />
                    </div>
 
         <button
