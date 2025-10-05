@@ -17,7 +17,7 @@
                    </div>
 
         <button
-          class="inline-flex items-center justify-center w-10 h-10 rounded-xl
+          class="inline-flex items-center justify-center w-6 h-6 rounded-xl
                  text-white bg-[#7A2AF7] ring-2 ring-[#4DB5FF]
                  shadow-sm hover:bg-[#6822e8] active:scale-[.98] transition"
           aria-label="Add"

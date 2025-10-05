@@ -23,7 +23,7 @@
     @click="filterOpen = !filterOpen"
     :aria-expanded="filterOpen ? 'true' : 'false'"
     aria-haspopup="menu"
-    class="inline-flex items-center gap-2 px-4 py-2 rounded-xl
+    class="inline-flex items-center gap-2 px-2 py-1 rounded-xl
            text-white bg-[#7A2AF7] ring-2 ring-[#4DB5FF]
            shadow-sm hover:bg-[#6822e8] active:scale-[.98]
            transition"
