@@ -1,6 +1,6 @@
 <template>
   <div class="container lg:mx-auto px-2 py-5 lg:px-5 lg:py-5">
-    <h1 class="text-[40px]">Setting &gt; Location</h1>
+    <h1 class="text-[20px]">Setting &gt; Location</h1>
     <div class="text-xl font-semibold mt-2 mb-4">List</div>
 
     <!-- ปุ่มมุมขวา -->
@@ -20,7 +20,7 @@
     <div class="-mx-2 lg:mx-0">
       <div class="overflow-x-auto [ -webkit-overflow-scrolling:touch ]">
         <div class="min-w-[920px]">
-          <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div class="bg-white rounded-2xl shadow-lg overflow-hidden text-sm">
             <!-- หัวตาราง -->
             <div class="bg-emerald-500 text-white font-bold whitespace-nowrap">
               <div

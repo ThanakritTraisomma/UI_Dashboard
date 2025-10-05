@@ -1,6 +1,6 @@
 <template>
   <div class="container lg:mx-auto px-2 py-5 lg:px-5 lg:py-5">
-    <h1 class="text-[40px]">Report > admin report</h1>
+    <h1 class="text-[20px]">Report > admin report</h1>
 
     <!-- แถวหัวข้อ + ตัวกรอง -->
     <div class="flex flex-col lg:flex-row lg:justify-between gap-3 lg:items-center">
@@ -9,11 +9,11 @@
        <div class="flex gap-2 ">
                  <div class="flex justify-center items-center">
                        <label for="">From:</label>
-                    <input type="date" class="border rounded px-2 py-1" />
+                    <input type="date" class="border rounded px-2 py-1 w-35" />
                  </div>
                    <div class="flex justify-center items-center">
                      <label for="">To:</label>
-                    <input type="date" class="border rounded px-2 py-1" />
+                    <input type="date" class="border rounded px-2 py-1 w-35" />
                    </div>
                 </div>
        <!-- วางในตำแหน่งปุ่ม Filter เดิม -->
@@ -62,7 +62,7 @@
 
     <!-- ตาราง -->
     <div class="mt-6">
-      <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden text-sm">
         <!-- หัวตาราง -->
         <div class="bg-emerald-500 text-white font-bold">
           <div class="grid grid-cols-[48px_1fr_1fr_1fr_1fr_1fr] items-center">

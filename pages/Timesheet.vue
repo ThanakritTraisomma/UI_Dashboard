@@ -1,6 +1,6 @@
 <template>
   <div class="container lg:mx-auto px-2 py-5 lg:px-5 lg:py-5">
-    <h1 class="text-[40px]">Timesheet</h1>
+    <h1 class="text-[20px]">Timesheet</h1>
 
     <div class="text-xl font-semibold mt-2 mb-4">List</div>
 
@@ -9,11 +9,11 @@
       <div class="flex items-center gap-3 flex-wrap">
        <div class="flex justify-center items-center">
                        <label for="">From:</label>
-                    <input type="date" class="border rounded px-2 py-1" />
+                    <input type="date" class="border rounded px-2 py-1 w-35" />
                  </div>
                    <div class="flex justify-center items-center">
                      <label for="">To:</label>
-                    <input type="date" class="border rounded px-2 py-1" />
+                    <input type="date" class="border rounded px-2 py-1 w-35" />
                    </div>
 
         <button
@@ -35,7 +35,7 @@
   <div class="overflow-x-auto [ -webkit-overflow-scrolling:touch ]">
     <!-- กำหนดความกว้างขั้นต่ำของตัวตารางเพื่อให้เกิดสกรอลล์ -->
     <div class="min-w-[1100px]">
-      <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+      <div class="bg-white rounded-2xl shadow-lg overflow-hidden text-sm">
         <!-- หัวตาราง -->
         <div class="bg-emerald-500 text-white font-bold whitespace-nowrap">
           <div
