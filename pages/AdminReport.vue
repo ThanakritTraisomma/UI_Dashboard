@@ -42,7 +42,7 @@
   <div
     v-if="filterOpen"
     role="menu"
-    class="absolute right-0 mt-2 w-44 z-50
+    class="absolute lg:right-0 mt-2 w-44 z-50
            bg-white rounded-xl shadow-xl ring-1 ring-black/5 py-2"
   >
     <button
