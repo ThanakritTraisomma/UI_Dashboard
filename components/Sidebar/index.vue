@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="hidden lg:block h-screen bg-black text-white transition-all duration-300 ease-in-out overflow-hidden"
+    class="hidden lg:block h-screen bg-black text-white transition-all duration-300 ease-in-out overflow-y-auto"
     :class="collapsed ? 'w-25' : 'w-64'"
   >
     <div class="flex flex-col mx-4 my-5">
