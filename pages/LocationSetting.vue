@@ -183,7 +183,7 @@ const locations = ref<LocationRow[]>([
   }
 ])
 
-const expanded = ref<Set<number>>(new Set([1])) // กางแถวแรกไว้เหมือนภาพ
+const expanded = ref<Set<number>>(new Set()) // กางแถวแรกไว้เหมือนภาพ
 const toggle = (id: number) => {
   const s = new Set(expanded.value)
   s.has(id) ? s.delete(id) : s.add(id)

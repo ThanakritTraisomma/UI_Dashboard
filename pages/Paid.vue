@@ -195,7 +195,7 @@ const members = ref<MemberRow[]>([
   }
 ])
 
-const expanded = ref<Set<number>>(new Set([1])) // ให้แถวแรกกางไว้เหมือนภาพ
+const expanded = ref<Set<number>>(new Set()) // ให้แถวแรกกางไว้เหมือนภาพ
 const toggle = (id: number) => {
   const s = new Set(expanded.value)
   s.has(id) ? s.delete(id) : s.add(id)

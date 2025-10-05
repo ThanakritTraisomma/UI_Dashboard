@@ -7,11 +7,14 @@
     <!-- แถวหัวข้อ + ช่วงวันที่ + ปุ่มเพิ่ม -->
     <div class="flex flex-col lg:flex-row lg:justify-end gap-3 lg:items-center">
       <div class="flex items-center gap-3 flex-wrap">
-        <label class="text-gray-700">From:</label>
-        <input type="date" class="h-10 rounded-lg border border-gray-300 px-2 shadow-sm" />
-
-        <label class="text-gray-700">To:</label>
-        <input type="date" class="h-10 rounded-lg border border-gray-300 px-2 shadow-sm" />
+       <div class="flex justify-center items-center">
+                       <label for="">From:</label>
+                    <input type="date" class="border rounded px-2 py-1" />
+                 </div>
+                   <div class="flex justify-center items-center">
+                     <label for="">To:</label>
+                    <input type="date" class="border rounded px-2 py-1" />
+                   </div>
 
         <button
           class="inline-flex items-center justify-center w-10 h-10 rounded-xl
