@@ -96,7 +96,6 @@ const toggleSection = (key: string) => {
   openSections.value = s
 }
 
-/** เมนู + Submenu (ตัวอย่าง: Report มี AdminReport & UserReport) */
 type Child = { key: string; label: string; href: string }
 type Item = { key: string; label: string; href?: string; icon: string; children?: Child[] }
 
@@ -119,6 +118,14 @@ const items: Item[] = [
     key: 'admin', label: 'Admin', icon: '/image/admin-with-cogwheels-svgrepo-com.png', children: [
       { key: 'Approve', label: 'Approve', href: '/Approve' },
       { key: 'Paid', label: 'Paid', href: '/Paid' },
+    ]
+  },
+  {
+    key: 'account', label: 'Account', icon: '/image/account-management-svgrepo-com.svg', children: [
+      { key: 'Buy', label: 'Buy', href: '/AccountBuy' },
+      { key: 'Sale', label: 'Sale', href: '/AccountSale' },
+      { key: 'stock', label: 'Stock', href: '/AccountStock' },
+      { key: 'Report', label: 'Report', href: '/AccountReport' },
     ]
   },
   {
