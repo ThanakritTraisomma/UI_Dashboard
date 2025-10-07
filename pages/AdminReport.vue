@@ -9,11 +9,11 @@
        <div class="flex gap-2 ">
                  <div class="flex justify-center items-center">
                        <label for="">From:</label>
-                    <input type="date" class="border rounded px-2 py-1 w-35" />
+                    <input type="date" class="border rounded px-2 py-1 w-33" />
                  </div>
                    <div class="flex justify-center items-center">
                      <label for="">To:</label>
-                    <input type="date" class="border rounded px-2 py-1 w-35" />
+                    <input type="date" class="border rounded px-2 py-1 w-33" />
                    </div>
                 </div>
        <!-- วางในตำแหน่งปุ่ม Filter เดิม -->
@@ -24,7 +24,7 @@
     :aria-expanded="filterOpen ? 'true' : 'false'"
     aria-haspopup="menu"
     class="inline-flex items-center gap-2 px-2 py-1 rounded-xl
-           text-white bg-[#7A2AF7] ring-2 ring-[#4DB5FF]
+           text-white bg-[#000000] ring-2 ring-[#4DB5FF]
            shadow-sm hover:bg-[#6822e8] active:scale-[.98]
            transition"
   >

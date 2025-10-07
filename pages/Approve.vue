@@ -3,19 +3,19 @@
     <h1 class="text-[20px]">Admin &gt; Approve</h1>
 
     <!-- ส่วนตัวกรอง -->
-    <div class="flex flex-col lg:flex-row lg:justify-between gap-3 lg:items-center">
+    <div class="flex flex-col lg:flex-row lg:justify-between gap-3 lg:items-center mt-4">
       <span>Summary</span>
       <div class="flex items-center gap-3 flex-wrap">
-        <div class="flex gap-2 ">
-                 <div class="flex justify-center items-center">
-                       <label for="">From:</label>
-                    <input type="date" class="border rounded px-2 py-1 w-35" />
-                 </div>
-                   <div class="flex justify-center items-center">
-                     <label for="">To:</label>
-                    <input type="date" class="border rounded px-2 py-1 w-35" />
-                   </div>
-                </div>
+        <div class="flex gap-2">
+          <div class="flex justify-center items-center">
+            <label for="">From:</label>
+            <input type="date" class="border rounded px-2 py-1 w-33" />
+          </div>
+          <div class="flex justify-center items-center">
+            <label for="">To:</label>
+            <input type="date" class="border rounded px-2 py-1 w-33" />
+          </div>
+        </div>
 
         <!-- ปุ่ม Filter -->
         <div class="relative z-10">
@@ -24,12 +24,9 @@
             :aria-expanded="filterOpen ? 'true' : 'false'"
             aria-haspopup="menu"
             class="inline-flex items-center gap-2 px-2 py-1 rounded-xl
-                   text-white bg-[#7A2AF7] ring-2 ring-[#4DB5FF]
+                   text-white bg-[#000000] ring-2 ring-[#4DB5FF]
                    shadow-sm hover:bg-[#6822e8] active:scale-[.98] transition"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M3.5 5a1.5 1.5 0 0 1 1.2-.6h14.6a1.5 1.5 0 0 1 1.2 2.4l-6.3 7.9v3.6a1.5 1.5 0 0 1-2.2 1.3l-3-1.7a1.5 1.5 0 0 1-.8-1.3v-1.9L3.5 6.8A1.5 1.5 0 0 1 3.5 5z"/>
-            </svg>
             <span class="font-medium">{{ currentFilter ?? 'Filter' }}</span>
           </button>
 
@@ -54,68 +51,61 @@
       </div>
     </div>
 
-    <!-- ตาราง (เลื่อนแนวนอนได้บนมือถือ) -->
-    <div class="mt-6 -mx-2 lg:mx-0">
-      <div class="overflow-x-auto [ -webkit-overflow-scrolling:touch ]">
-        <div class="min-w-[980px]">
-          <div class="bg-white rounded-2xl shadow-lg overflow-hidden text-sm">
-            <!-- หัวตาราง -->
-            <div class="bg-emerald-500 text-white font-bold whitespace-nowrap">
-              <div
-                class="grid items-center
-                       [grid-template-columns:160px_1fr_1fr_140px_1fr_160px_120px]"
-              >
-                <div class="h-12 flex items-center justify-center px-4">Member ID</div>
-                <div class="h-12 flex items-center justify-center px-4">Name</div>
-                <div class="h-12 flex items-center justify-center px-4">Surname</div>
-                <div class="h-12 flex items-center justify-center px-4">Wage</div>
-                <div class="h-12 flex items-center justify-center px-4">Create By</div>
-                <div class="h-12 flex items-center justify-center px-4">Create Date</div>
-                <div class="h-12 flex items-center justify-center px-4">Approve</div>
-              </div>
+    <!-- ตาราง Card + scroll -->
+    <div class="mt-4 bg-white rounded-2xl shadow-lg ring-1 ring-gray-200 overflow-hidden">
+      <div class="overflow-x-auto [-webkit-overflow-scrolling:touch]">
+        <div class="min-w-[980px] text-sm">
+          <!-- หัวตาราง -->
+          <div class="bg-emerald-500 text-white font-bold whitespace-nowrap">
+            <div class="grid grid-cols-[160px_1fr_1fr_140px_1fr_160px_120px] items-center h-12">
+              <div class="flex items-center justify-center px-4">Member ID</div>
+              <div class="flex items-center justify-center px-4">Name</div>
+              <div class="flex items-center justify-center px-4">Surname</div>
+              <div class="flex items-center justify-center px-4">Wage</div>
+              <div class="flex items-center justify-center px-4">Create By</div>
+              <div class="flex items-center justify-center px-4">Create Date</div>
+              <div class="flex items-center justify-center px-4">Approve</div>
             </div>
+          </div>
 
-            <!-- แถวข้อมูล -->
-            <div class="whitespace-nowrap">
-              <template v-for="r in rowsShown" :key="r.id">
-                <div
-                  class="grid items-center border-b last:border-b-0
-                         [grid-template-columns:160px_1fr_1fr_140px_1fr_160px_120px]"
+          <!-- แถวข้อมูล -->
+          <div class="whitespace-nowrap bg-white">
+            <template v-for="r in rowsShown" :key="r.id">
+              <div class="grid grid-cols-[160px_1fr_1fr_140px_1fr_160px_120px] items-center border-b last:border-b-0 h-14">
+                <div class="flex items-center justify-center px-4">{{ r.memberId }}</div>
+                <div class="flex items-center justify-center px-4">{{ r.name }}</div>
+                <div class="flex items-center justify-center px-4">{{ r.surname }}</div>
+                <div class="flex items-center justify-center px-4">{{ formatNumber(r.wage) }}</div>
+                <div class="flex items-center justify-center px-4">{{ r.createBy }}</div>
+                <div class="flex items-center justify-center px-4">{{ r.createDate }}</div>
+
+                <!-- Approve: สวิตช์ checkbox -->
+                <button
+                  class="flex items-center justify-center px-4 h-14 hover:bg-gray-50 transition"
+                  @click="r.approved = !r.approved"
+                  :aria-pressed="r.approved ? 'true' : 'false'"
+                  :title="r.approved ? 'Approved' : 'Not approved'"
                 >
-                  <div class="h-14 flex items-center justify-center px-4">{{ r.memberId }}</div>
-                  <div class="h-14 flex items-center justify-center px-4">{{ r.name }}</div>
-                  <div class="h-14 flex items-center justify-center px-4">{{ r.surname }}</div>
-                  <div class="h-14 flex items-center justify-center px-4">{{ formatNumber(r.wage) }}</div>
-                  <div class="h-14 flex items-center justify-center px-4">{{ r.createBy }}</div>
-                  <div class="h-14 flex items-center justify-center px-4">{{ r.createDate }}</div>
-
-                  <!-- Approve: สวิตช์ checkbox ไอคอน -->
-                  <button
-                    class="h-14 flex items-center justify-center px-4 hover:bg-gray-50 transition"
-                    @click="r.approved = !r.approved"
-                    :aria-pressed="r.approved ? 'true' : 'false'"
-                    :title="r.approved ? 'Approved' : 'Not approved'"
-                  >
-                    <svg v-if="r.approved" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <rect x="3" y="3" width="18" height="18" rx="2" />
-                      <path d="M7 12l3 3 7-7" />
-                    </svg>
-                    <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <rect x="3" y="3" width="18" height="18" rx="2" />
-                    </svg>
-                  </button>
-                </div>
-              </template>
-            </div>
+                  <svg v-if="r.approved" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <path d="M7 12l3 3 7-7" />
+                  </svg>
+                  <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                  </svg>
+                </button>
+              </div>
+            </template>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { ref, computed } from 'vue'
 
 type Row = {
   id: number
@@ -129,16 +119,11 @@ type Row = {
 }
 
 const rows = ref<Row[]>([
-  { id: 1, memberId: '001', name: 'A', surname: 'AA', wage: 500, createBy: 'Navaphan', createDate: '09/09/2025', approved: true  },
-  { id: 2, memberId: '001', name: 'A', surname: 'AA', wage: 500, createBy: 'Navaphan', createDate: '15/09/2025', approved: true  },
-  { id: 3, memberId: '001', name: 'A', surname: 'AA', wage: 500, createBy: 'Navaphan', createDate: '25/09/2025', approved: true  },
-  { id: 4, memberId: '002', name: 'B', surname: 'BB', wage: 500, createBy: 'Noyjinda', createDate: '02/09/2025', approved: true  },
-  { id: 5, memberId: '002', name: 'B', surname: 'BB', wage: 500, createBy: 'Noyjinda', createDate: '03/09/2025', approved: true  },
-  { id: 6, memberId: '002', name: 'B', surname: 'BB', wage: 500, createBy: 'Noyjinda', createDate: '14/09/2025', approved: false },
+  { id: 1, memberId: '001', name: 'A', surname: 'AA', wage: 500, createBy: 'Navaphan', createDate: '09/09/2025', approved: true },
+  { id: 2, memberId: '002', name: 'B', surname: 'BB', wage: 500, createBy: 'Noyjinda', createDate: '02/09/2025', approved: false },
+  { id: 3, memberId: '003', name: 'C', surname: 'CC', wage: 500, createBy: 'Someone', createDate: '15/09/2025', approved: true },
 ])
 
-/* ฟิลเตอร์ (ตัวอย่าง: Request/Approve/Paid — ใช้กับหน้าอื่นได้)
-   ที่หน้านี้เดโมไว้เฉย ๆ โดยถือว่า 'Approve' = approved==true */
 const filterOpen = ref(false)
 const filterOptions = ['All', 'Approved', 'Not Approved'] as const
 type FilterType = (typeof filterOptions)[number]
@@ -160,5 +145,4 @@ const formatNumber = (n: number) =>
 </script>
 
 <style scoped>
-/* เพิ่มถ้าต้องการ */
 </style>
